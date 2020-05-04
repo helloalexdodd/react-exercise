@@ -1,0 +1,38 @@
+.weather {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+  margin-top: 40px;
+}
+
+.weatherCard {
+  margin: 0 10px;
+  width: calc(100% / 8 - 20px);
+  border: 2px solid #030303;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.weatherCard.clear {
+  background: lightblue;
+}
+
+.weatherCard.cloud {
+  background: lightgray;
+}
+
+.weatherCard.sun {
+  background: orange;
+}
+/*# sourceMappingURL=weather.css.map */

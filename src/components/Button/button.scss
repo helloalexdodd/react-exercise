@@ -11,11 +11,16 @@ a {
 	height: 30px;
 	margin: 0;
 	padding: 0;
-	border: 1px solid $black;
+	border: 1px solid #aaa;
 	border-radius: 10px;
 	font-family: sans-serif;
 	font-size: 20px;
 	color: $black;
 	text-decoration: none;
 	text-align: center;
+
+	&:hover,
+	&:focus {
+		border: 1px solid $black;
+	}
 }

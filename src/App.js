@@ -3,7 +3,8 @@ import Form from './components/Form';
 import Header from './components/Header';
 import Weather from './components/Weather';
 import Wrapper from './components/Wrapper';
-import { getData, WEATHER_API_URL, GEO_API_URL } from './utilities';
+import { getData } from './utilities';
+import { WEATHER_API_KEY, GEO_API_KEY } from './constants';
 
 class App extends React.Component {
 	constructor() {
@@ -13,19 +14,19 @@ class App extends React.Component {
 			lng: '',
 			lat: '',
 			weatherData: {},
-			units: 'metric',
+			unit: 'metric',
 		}
 	};
 
 	getWeather = () => {
-		const url = WEATHER_API_URL(this.state.lat, this.state.lng, this.state.units)
-		getData(url).then((weatherData) => {
-			console.log(weatherData)
-			this.setState({ weatherData }, () => {
-				this.setState({ userInput: '' });
-			});
-		});
+		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lng}&appid=${WEATHER_API_KEY}&units=${this.state.unit}`
+		getData(url).then((weatherData) => this.setState({ weatherData }));
 	};
+
+	getGeo = () => {
+		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${GEO_API_KEY}&location=${this.state.userInput}}`;
+		getData(url).then((data) => this.saveLocation(data))
+	}
 
 	saveLocation = (data) => {
 		const latLng = data.results[0].locations[0].latLng
@@ -37,11 +38,18 @@ class App extends React.Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		const url = GEO_API_URL(this.state.userInput);
-		getData(url).then((data) => this.saveLocation(data))
+		this.getGeo();
 	};
 
-	handleChange = (userInput) => this.setState({ userInput });
+	handleChange = (userInput) => {
+		if (userInput === 'imperial' || userInput === 'metric') {
+			this.setState({ unit: userInput }, () => this.getWeather());
+			return;
+		}
+		this.setState({ userInput });
+	};
+
+	handleFocus = () => this.setState({ userInput: '' })
 
 	render() {
 		return (
@@ -50,9 +58,10 @@ class App extends React.Component {
 				<Form
 					handleSubmit={this.handleSubmit}
 					handleChange={this.handleChange}
+					handleFocus={this.handleFocus}
 					value={this.state.userInput}
 				/>
-				{this.state.weatherData.daily ? <Weather data={this.state.weatherData} /> : null}
+				{this.state.weatherData.daily ? <Weather data={this.state.weatherData} unit={this.state.unit} /> : null}
 			</Wrapper>
 		);
 	};

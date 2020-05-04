@@ -1,15 +1,29 @@
 import React from 'react';
 import Button from '../Button';
+import Select from '../Select';
 import './form.scss';
 
-const Form = ({ handleSubmit, handleChange, value }) => (
-	<form onSubmit={(e) => handleSubmit(e)}>
-		<input type="text" value={value} onChange={(e) => handleChange(e.target.value)} />
-		<Button
-			value="Submit"
-			type="input"
-		/>
-	</form>
-);
+const Form = ({
+	handleSubmit,
+	handleChange,
+	handleFocus,
+	value
+}) => (
+		<form onSubmit={(e) => handleSubmit(e)}>
+			<div>
+				<input
+					type="text"
+					value={value}
+					onChange={(e) => handleChange(e.target.value)}
+					onFocus={(e) => { handleFocus() }}
+				/>
+				<Select handleChange={handleChange} />
+			</div>
+			<Button
+				value="Submit"
+				type="input"
+			/>
+		</form>
+	);
 
 export default Form;
