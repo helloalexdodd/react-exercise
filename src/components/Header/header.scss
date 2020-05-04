@@ -1,6 +1,17 @@
+@import '../../styles/variables.scss';
+@import '../../styles/global.scss';
+
 header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 25vh;
+
+	h1 {
+		@include font-size(4);
+	}
+
+	h2 {
+		@include font-size(2);
+	}
 }

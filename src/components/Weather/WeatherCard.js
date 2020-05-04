@@ -11,11 +11,10 @@ const temperatureCheck = (key) => {
 const WeatherCard = ({ data, unit, i }) => {
 	const { temp, weather } = data;
 	const { description, icon } = weather[0];
-	console.log(data)
 	return (
-		<div className={`weatherCard ${description.includes('clear') ? 'clear' : 'cloud'}`}>
+		<li className={`weatherCard ${description.includes('clear') ? 'clear' : 'cloud'}`}>
 			<h3>{getDay(i)}</h3>
-			<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="" />
+			<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={description} />
 			{
 				Object.keys(temp).map((key, i) => {
 					return temperatureCheck(key)
@@ -25,7 +24,7 @@ const WeatherCard = ({ data, unit, i }) => {
 						: null
 				})
 			}
-		</div >
+		</li >
 	)
 };
 
