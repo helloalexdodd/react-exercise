@@ -26,4 +26,4 @@ export const getDay = (i) => {
 		case 14:
 			return 'Sunday';
 	}
-}
+};

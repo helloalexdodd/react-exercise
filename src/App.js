@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/global.scss'
 import Form from './components/Form';
 import Header from './components/Header';
 import Weather from './components/Weather';
@@ -14,6 +15,7 @@ class App extends React.Component {
 			lat: '',
 			weatherData: {},
 			unit: 'metric',
+			city: '',
 		}
 	};
 
@@ -27,13 +29,22 @@ class App extends React.Component {
 
 	getWeather = () => {
 		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lng}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=${this.state.unit}`
-		getData(url).then((weatherData) => this.setState({ weatherData }));
+		getData(url).then((weatherData) => this.setState({ weatherData }, this.getCity));
 	};
 
 	getGeo = () => {
 		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.userInput}}`;
 		getData(url).then((data) => this.saveLocation(data))
 	};
+
+	getCity = () => {
+		const url = `http://open.mapquestapi.com/geocoding/v1/reverse?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.lat},${this.state.lng}`;
+		getData(url).then((data) => {
+			console.log(data.results[0].locations[0])
+			const city = data.results[0].locations[0].adminArea5;
+			this.setState({ city });
+		});
+	}
 
 	handleSubmit = (e) => {
 		e.preventDefault();
@@ -65,6 +76,7 @@ class App extends React.Component {
 						? <Weather
 							data={this.state.weatherData}
 							unit={this.state.unit}
+							city={this.state.city}
 						/>
 						: null}
 				</main>

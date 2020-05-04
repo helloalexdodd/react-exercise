@@ -13,7 +13,7 @@ const WeatherCard = ({ data, unit, i }) => {
 	const { description, icon } = weather[0];
 	return (
 		<li className={`weatherCard ${description.includes('clear') ? 'clear' : 'cloud'}`}>
-			<h3>{getDay(i)}</h3>
+			<h4>{getDay(i)}</h4>
 			<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt={description} />
 			{
 				Object.keys(temp).map((key, i) => {
