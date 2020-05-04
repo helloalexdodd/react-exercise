@@ -4,7 +4,6 @@ import Header from './components/Header';
 import Weather from './components/Weather';
 import Wrapper from './components/Wrapper';
 import { getData } from './utilities';
-import { WEATHER_API_KEY, GEO_API_KEY } from './constants';
 
 class App extends React.Component {
 	constructor() {
@@ -18,16 +17,6 @@ class App extends React.Component {
 		}
 	};
 
-	getWeather = () => {
-		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lng}&appid=${WEATHER_API_KEY}&units=${this.state.unit}`
-		getData(url).then((weatherData) => this.setState({ weatherData }));
-	};
-
-	getGeo = () => {
-		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${GEO_API_KEY}&location=${this.state.userInput}}`;
-		getData(url).then((data) => this.saveLocation(data))
-	}
-
 	saveLocation = (data) => {
 		const latLng = data.results[0].locations[0].latLng
 		this.setState({
@@ -36,8 +25,20 @@ class App extends React.Component {
 		}, this.getWeather);
 	};
 
+	getWeather = () => {
+		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lng}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=${this.state.unit}`
+		getData(url).then((weatherData) => this.setState({ weatherData }));
+	};
+
+	getGeo = () => {
+		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.userInput}}`;
+		getData(url).then((data) => this.saveLocation(data))
+	}
+
 	handleSubmit = (e) => {
 		e.preventDefault();
+		console.log(process.env.REACT_APP_GEO_API_KEY);
+		console.log(process.env.REACT_APP_WEATHER_API_KEY);
 		this.getGeo();
 	};
 
@@ -61,7 +62,12 @@ class App extends React.Component {
 					handleFocus={this.handleFocus}
 					value={this.state.userInput}
 				/>
-				{this.state.weatherData.daily ? <Weather data={this.state.weatherData} unit={this.state.unit} /> : null}
+				{this.state.weatherData.daily
+					? <Weather
+						data={this.state.weatherData}
+						unit={this.state.unit}
+					/>
+					: null}
 			</Wrapper>
 		);
 	};

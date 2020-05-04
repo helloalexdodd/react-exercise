@@ -11,8 +11,8 @@
 # production
 /build
 
-# secrets
-/src/constants
+# api keys
+.env
 
 # misc
 .DS_Store
