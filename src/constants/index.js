@@ -1,0 +1,3 @@
+export const WEATHER_API_KEY = 'a0a32f6fd9738814c800048eea04a217';
+
+export const GEO_API_KEY = '0L1ofd2vZhdAFV7c2IZAH97VRJRZ1Cz0';
