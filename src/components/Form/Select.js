@@ -1,5 +1,5 @@
 import React from 'react';
-import './select.scss';
+import './form.scss';
 
 const Select = ({ handleChange }) => (
 	<select onChange={(e) => handleChange(e.target.value)}>

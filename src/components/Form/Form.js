@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../Button';
-import Select from '../Select';
+import Select from './Select';
 import './form.scss';
 
 const Form = ({

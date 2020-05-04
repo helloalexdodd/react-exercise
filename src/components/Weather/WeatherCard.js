@@ -1,30 +1,27 @@
 import React from 'react';
+import { getDay } from '../../utilities';
 import './weather.scss';
 
 const temperatureCheck = (key) => {
-	if (key === 'morn' || key === 'day' || key === 'night') return true;
+	if (key === 'max'
+		|| key === 'min'
+	) return true;
 }
 
-const weatherCheck = (weather) => {
-	if (weather.includes('clear')) {
-		return 'clear'
-	}
-	if (weather.includes('cloud')) {
-		return 'cloud'
-	}
-	return 'sun'
-}
-
-const WeatherCard = ({ data, unit }) => {
+const WeatherCard = ({ data, unit, i }) => {
 	const { temp, weather } = data;
-	const unitOfMeasure = unit === 'metric' ? '°C' : '°F';
+	const { description, icon } = weather[0];
+	console.log(data)
 	return (
-		<div className={`weatherCard ${weatherCheck(weather.description)}`}>
-			<img src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt="" />
+		<div className={`weatherCard ${description.includes('clear') ? 'clear' : 'cloud'}`}>
+			<h3>{getDay(i)}</h3>
+			<img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="" />
 			{
 				Object.keys(temp).map((key, i) => {
 					return temperatureCheck(key)
-						? <p key={'temps' + i}>{key}: {temp[key]}{unitOfMeasure}</p>
+						? <p key={'temps' + i}>
+							{key === 'min' ? 'low' : 'high'}: {temp[key]}{unit === 'metric' ? '°C' : '°F'}
+						</p>
 						: null
 				})
 			}

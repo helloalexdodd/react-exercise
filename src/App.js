@@ -33,12 +33,10 @@ class App extends React.Component {
 	getGeo = () => {
 		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.userInput}}`;
 		getData(url).then((data) => this.saveLocation(data))
-	}
+	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(process.env.REACT_APP_GEO_API_KEY);
-		console.log(process.env.REACT_APP_WEATHER_API_KEY);
 		this.getGeo();
 	};
 
@@ -50,24 +48,26 @@ class App extends React.Component {
 		this.setState({ userInput });
 	};
 
-	handleFocus = () => this.setState({ userInput: '' })
+	handleFocus = () => this.setState({ userInput: '' });
 
 	render() {
 		return (
 			<Wrapper>
 				<Header />
-				<Form
-					handleSubmit={this.handleSubmit}
-					handleChange={this.handleChange}
-					handleFocus={this.handleFocus}
-					value={this.state.userInput}
-				/>
-				{this.state.weatherData.daily
-					? <Weather
-						data={this.state.weatherData}
-						unit={this.state.unit}
+				<main>
+					<Form
+						handleSubmit={this.handleSubmit}
+						handleChange={this.handleChange}
+						handleFocus={this.handleFocus}
+						value={this.state.userInput}
 					/>
-					: null}
+					{this.state.weatherData.daily
+						? <Weather
+							data={this.state.weatherData}
+							unit={this.state.unit}
+						/>
+						: null}
+				</main>
 			</Wrapper>
 		);
 	};
