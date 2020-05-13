@@ -9,8 +9,7 @@ const Footer = () => (
         type="anchor"
         href="https://developer.mapquest.com/"
       >MapQuest
-      </Button>
-      
+      </Button>      
       and
       <Button
         type="anchor"

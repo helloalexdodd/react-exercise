@@ -20,24 +20,6 @@ class App extends React.Component {
 		}
 	};
 
-	saveLocation = (data) => {
-		const latLng = data.results[0].locations[0].latLng
-		this.setState({
-			lng: latLng.lng,
-			lat: latLng.lat
-		}, this.getWeather);
-	};
-
-	getWeather = () => {
-		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lng}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=${this.state.unit}`
-		getData(url).then((weatherData) => this.setState({ weatherData }, this.getCity));
-	};
-
-	getGeo = () => {
-		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.userInput}}`;
-		getData(url).then((data) => this.saveLocation(data))
-	};
-
 	getCity = () => {
 		const url = `http://open.mapquestapi.com/geocoding/v1/reverse?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.lat},${this.state.lng}`;
 		getData(url).then((data) => {
@@ -46,12 +28,32 @@ class App extends React.Component {
 		});
 	}
 
+	getWeather = () => {
+		const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.lat}&lon=${this.state.lng}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=${this.state.unit}`
+		getData(url).then((weatherData) => this.setState({ weatherData }, this.getCity));
+	};
+
+	saveLocation = (data) => {
+		const latLng = data.results[0].locations[0].latLng
+		this.setState({
+			lng: latLng.lng,
+			lat: latLng.lat
+		}, this.getWeather);
+	};
+
+	getGeo = () => {
+		const url = `http://www.mapquestapi.com/geocoding/v1/address?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.userInput}}`;
+		getData(url).then((data) => this.saveLocation(data))
+	};
+
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.getGeo();
 	};
 
-	handleChange = (userInput) => {
+	handleChange = (e, userInput) => {
+		console.log({e});
+		console.log({userInput});
 		if (userInput === 'imperial' || userInput === 'metric') {
 			this.setState({ unit: userInput }, () => this.getWeather());
 			return;

@@ -14,8 +14,8 @@ const Form = ({
 				<input
 					type="text"
 					value={value}
-					onChange={(e) => handleChange(e.target.value)}
-					onFocus={(e) => { handleFocus() }}
+					onChange={(e) => handleChange(e, e.target.value)}
+					onFocus={handleFocus}
 				/>
 				<Select handleChange={handleChange} />
 			</div>
