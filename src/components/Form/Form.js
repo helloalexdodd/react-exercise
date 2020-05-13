@@ -19,10 +19,7 @@ const Form = ({
 				/>
 				<Select handleChange={handleChange} />
 			</div>
-			<Button
-				value="Submit"
-				type="input"
-			/>
+			<Button type="button">Submit</Button>
 		</form>
 	);
 

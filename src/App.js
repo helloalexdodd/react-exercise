@@ -2,8 +2,9 @@ import React from 'react';
 import './styles/global.scss'
 import Form from './components/Form';
 import Header from './components/Header';
-import Weather from './components/Weather';
 import Wrapper from './components/Wrapper';
+import Weather from './components/Weather';
+import Footer from './components/Footer';
 import { getData } from './utilities';
 
 class App extends React.Component {
@@ -40,7 +41,6 @@ class App extends React.Component {
 	getCity = () => {
 		const url = `http://open.mapquestapi.com/geocoding/v1/reverse?key=${process.env.REACT_APP_GEO_API_KEY}&location=${this.state.lat},${this.state.lng}`;
 		getData(url).then((data) => {
-			console.log(data.results[0].locations[0])
 			const city = data.results[0].locations[0].adminArea5;
 			this.setState({ city });
 		});
@@ -80,6 +80,7 @@ class App extends React.Component {
 						/>
 						: null}
 				</main>
+				<Footer />
 			</Wrapper>
 		);
 	};

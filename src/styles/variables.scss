@@ -2,8 +2,5 @@ $black: #030303;
 $white:#fafafa;
 $grey: #aaa;
 $primaryColor: lightcoral;
-
-@mixin font-size($sizeValue: 1.6) {
-  font-size: ($sizeValue * 10) + px;
-  font-size: $sizeValue + rem;
-}
+$cloudyDay: lightgrey;
+$clearDay: lightblue;

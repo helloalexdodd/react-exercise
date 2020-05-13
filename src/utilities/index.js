@@ -4,9 +4,6 @@ export const getDay = (i) => {
 	const date = new Date();
 	const dayOfTheWeek = date.getDay() + i;
 	switch (dayOfTheWeek) {
-		case 1:
-		case 8:
-			return 'Monday';
 		case 2:
 		case 9:
 			return 'Tuesday';
@@ -25,5 +22,7 @@ export const getDay = (i) => {
 		case 7:
 		case 14:
 			return 'Sunday';
+		default:
+			return 'Monday';
 	}
 };

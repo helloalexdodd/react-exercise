@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+footer {
+  @include flex();
+  @include position(fixed, $bottom: 0, $left: 0, $right: 0);
+  background: $black;
+  color: $white;
+
+  a {
+    color: inherit;
+  }
+}
